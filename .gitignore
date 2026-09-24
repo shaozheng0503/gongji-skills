@@ -1,3 +1,9 @@
 .env
 *.pem
 *.key
+
+# Apifox 同步缓存与清单（运行时产物，无需入库；测试沙盒同）
+.apifox-tree-cache.json
+.apifox-sync-manifest.json
+scripts/.test-sandbox-*/
+scripts/test-report.json

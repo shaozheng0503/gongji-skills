@@ -83,6 +83,10 @@ Content-Type: application/json   # POST 时
 
 完整字段见 [`api/`](api/) 下对应文档；**仅在构造复杂 body 时读取**，勿整篇加载。
 
+### 文档实时同步
+
+`api/*.md` 由仓库根 [`scripts/fetch_apifox.py`](../scripts/fetch_apifox.py) 从 Apifox 官方分享文档实时同步生成（非静态导出）。怀疑文档过期时，运行 `python scripts/fetch_apifox.py --check` 检查（有更新 exit 1 / 全部最新 exit 0 / 网络失败 exit 2 且本地文档保留可用），确认后去掉 `--check` 执行同步。同步幂等：内容未变的文件不重写。
+
 ## 工作流
 
 询问用户是否要先进行镜像预热，提前把任务所需的镜像准备到目标计算资源附近，可以降低任务冷启动时间，如果使用者需要：请使用 suanli-preheat 这个 skill。

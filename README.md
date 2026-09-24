@@ -61,3 +61,25 @@ cp .env.example .env
 ```bash
 npx skills update
 ```
+
+## 文档实时同步（Apifox）
+
+各 skill 的 `api/*.md` 已改为由 [`scripts/fetch_apifox.py`](scripts/fetch_apifox.py) 从 Apifox 官方分享文档（[s.apifox.cn/6aa360d3…](https://s.apifox.cn/6aa360d3-d8f2-471e-b841-3a35c33a7b7c)）**运行时实时同步**生成，不再是写死的静态导出——官方文档更新后，重跑同步即可生效，无需手工改 skill。
+
+```bash
+# 检查远端是否有更新（不写文件）
+python scripts/fetch_apifox.py --check
+
+# 同步全部 skill（内容未变的文件自动跳过）
+python scripts/fetch_apifox.py
+
+# 只同步某个 skill / 强制重写 / 刷新树缓存 / 清理孤儿文件
+python scripts/fetch_apifox.py --skill suanli-job
+python scripts/fetch_apifox.py --force
+python scripts/fetch_apifox.py --refresh-cache
+python scripts/fetch_apifox.py --prune
+```
+
+退出码约定：`0` 成功/全部最新；`1` 有更新可拉取（check 模式）或部分端点失败；`2` API 树拉取失败（网络异常，本地文档保留可用）。依赖：Python 3.8+ 与 `requests`。
+
+测试：`python scripts/test_fetch_apifox.py`（离线沙盒，11 个用例，报告写入 `scripts/test-report.md`）。

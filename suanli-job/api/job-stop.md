@@ -1,164 +1,54 @@
 # Job任务停止接口
 
-## OpenAPI Specification
+> 来源：Apifox 官方文档（实时同步） · 分组：共绩算力 Open API/Job批处理任务
+> 远端最后更新：2026-06-13T11:03:18.000Z
+> 端点：`POST /api/task/job/stop`
 
-```yaml
-openapi: 3.0.1
-info:
-  title: ''
-  description: ''
-  version: 1.0.0
-paths:
-  /api/task/job/stop:
-    post:
-      summary: Job任务停止接口
-      deprecated: false
-      description: |-
-        | 当前版本 | 旧版本 | 是否需要加密 | 是否需要加签 |
-        | --- | --- | --- | --- |
-        | v1.0.0 | - | 否 | 是 |
+| 当前版本 | 旧版本 | 是否需要加密 | 是否需要加签 |
+| --- | --- | --- | --- |
+| v1.0.0 | - | 否 | 是 |
 
-        ### **描述**
-        停止Job批处理任务。
-      tags:
-        - 共绩算力 Open API/Job批处理任务
-        - 共绩算力 Open API/任务
-      parameters:
-        - name: token
-          in: header
-          description: 请填入您在平台内创建的 API 密钥，获取路径为：右上角头像 → API 密钥。
-          required: true
-          example: ''
-          schema:
-            type: string
-        - name: timestamp
-          in: header
-          description: 时间戳
-          required: true
-          example: '{{$date.millisecondsTimestamp}}'
-          schema:
-            type: integer
-        - name: version
-          in: header
-          description: 固定值
-          required: true
-          example: 1.0.0
-          schema:
-            type: string
-        - name: sign_str
-          in: header
-          description: 如果token为简易模式则无需填写此字段
-          required: false
-          example: ''
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                task_id:
-                  type: integer
-              x-apifox-orders:
-                - task_id
-              required:
-                - task_id
-              x-apifox-ignore-properties: []
-            example:
-              task_id: 1962322
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: string
-                    enum:
-                      - '0000'
-                      - C999
-                      - C001
-                      - C002
-                      - C004
-                      - C005
-                      - C006
-                      - C007
-                      - C008
-                      - C009
-                      - C010
-                      - Z001
-                    description: 当code≠0000时，data必为null。
-                    title: 响应码
-                  message:
-                    type: string
-                    title: 响应信息
-                    nullable: true
-                  data:
-                    type: 'null'
-                required:
-                  - code
-                  - message
-                  - data
-                x-apifox-orders:
-                  - 01KV0ACNNC1AX4RHAHRMYT3TXJ
-                  - data
-                x-apifox-refs:
-                  01KV0ACNNC1AX4RHAHRMYT3TXJ:
-                    $ref: '#/components/schemas/IResponse'
-                x-apifox-ignore-properties:
-                  - code
-                  - message
-              example:
-                code: '0000'
-                message: success
-                data: null
-          headers: {}
-          x-apifox-name: 成功
-      security: []
-      x-apifox-folder: 共绩算力 Open API/Job批处理任务
-      x-apifox-status: released
-      x-run-in-apifox: https://app.apifox.com/web/project/3025695/apis/api-446681900-run
-components:
-  schemas:
-    IResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          enum:
-            - '0000'
-            - C999
-            - C001
-            - C002
-            - C004
-            - C005
-            - C006
-            - C007
-            - C008
-            - C009
-            - C010
-            - Z001
-          description: 当code≠0000时，data必为null。
-          title: 响应码
-        message:
-          type: string
-          title: 响应信息
-          nullable: true
-      required:
-        - code
-        - message
-      x-apifox-orders:
-        - code
-        - message
-      x-apifox-ignore-properties: []
-      x-apifox-folder: ''
-  securitySchemes: {}
-servers:
-  - url: https://openapi.suanli.cn
-    description: 正式环境
-security: []
+### **描述**
+停止Job批处理任务。
 
+## header 参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `token` | string | 是 | 请填入您在平台内创建的 API 密钥，获取路径为：右上角头像 → API 密钥。 |
+| `timestamp` | integer | 是 | 时间戳（示例：{{$date.millisecondsTimestamp}}） |
+| `version` | string | 是 | 固定值（示例：1.0.0） |
+| `sign_str` | string | 否 | 如果token为简易模式则无需填写此字段 |
+
+## 请求体
+
+Content-Type: `application/json`
+
+- `task_id` `integer` **(必填)**
+
+**请求示例（示例 1）**：
+
+```json
+{
+  "task_id": 1962322
+}
 ```
+
+## 响应（200）
+
+- `data` `null` **(必填)**
+
+响应名：成功
+
+**响应示例（成功示例）**：
+
+```json
+{
+  "code": "0000",
+  "message": "success",
+  "data": null
+}
+```
+
+---
+*本文档由 fetch_apifox.py 从 Apifox 分享文档 6aa360d3-d8f2-471e-b841-3a35c33a7b7c 实时同步生成；同步时间见仓库根 .apifox-sync-manifest.json*
